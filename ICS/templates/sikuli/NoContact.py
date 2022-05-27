@@ -2,7 +2,8 @@ from sikuli.Sikuli import *
 import org.sikuli.script.SikulixForJython
 import os
 
-pwd = os.path.join(os.path.expanduser('~'), r"Documents\CBPO\Dual\SIKULI\NoContact")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+pwd = os.path.join(BASE_DIR, r"images")
 
 ICSIconIN = Pattern(os.path.join(pwd, "ICSIcon.png")).similar(0.90)
 ICSIconOUT = Pattern(os.path.join(pwd,"ICSIconOUT.png")).similar(0.93)
@@ -94,11 +95,11 @@ def Demographics():
                         type(Key.TAB)
                     if j == 1 and i == 'EMAIL':
                         type('e')
-                    if j == 2 and i == 'ADDRESS':
-                        type(os.environ['CITY'])
+                    # if j == 2 and i == 'ADDRESS':
+                    #     type(os.environ['CITY'])
                     else:
                         type(Key.TAB)
-    click(Pattern(address_button).targetOffset(-100,65))
+    # click(Pattern(address_button).targetOffset(-100,65))
 
 PopularTipification(
     os.environ['DEBTOR'],

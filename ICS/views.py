@@ -91,7 +91,9 @@ class ICSdualDesk(APIView):
             stdout=subprocess.PIPE).stdout.read().decode())
         print(dt.timedelta(seconds=time() - initial))
         if os.environ['MULTI'] == 'True':
-            ctypes.windll.user32.MessageBoxW(0, "Gestion con multiples obligaciones", "Advertencia", 0)
+            ctypes.windll.user32.MessageBoxW(0, "Gestión con multiples obligaciones", "Advertencia", 0)
+        if os.environ['PHONE'] != 'null' or os.environ['ADDRESS'] != 'null' or os.environ['EMAIL'] != 'null':
+            ctypes.windll.user32.MessageBoxW(0, "Terminar de diligenciar Actualización de datos", "Advertencia", 0)
 
     def post(self,request):
         initial = time()
@@ -102,16 +104,15 @@ class ICSdualDesk(APIView):
             with open(os.path.join(settings.BASE_DIR, 'ICS/templates/query1.sql'), 'r') as file:
                 query = file.read()
             data = pd.read_sql(query.format(request.data.get('user')), psycopg2.connect(**settings.PSQL_MAIN))
+            print(data)
             commit_fields = [column for column in data.columns if len(column) == 2 and column.find('n') == 0]
             amount = data.groupby(by=['gestion_fecha'], as_index=True, sort=False).count()['n1']
             if amount.shape[0]<1:
                 return Response(status=status.HTTP_204_NO_CONTENT)
-            print(data)
             if data.loc[0, commit_fields].any() and amount[0] > 1:
                 os.environ['MULTI'] = 'True'
             else:
                 os.environ['MULTI'] = 'False'
-            print(os.environ['MULTI'])
 
             self.ExecuteSikuli(data.loc[0].copy())
 
