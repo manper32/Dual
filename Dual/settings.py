@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import socket
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,6 +26,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '2%@q#$ynxw7j*tak(8n4t=q82bt!tl
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = str(os.environ.get('DJANGO_DEBUG')).lower() == 'true'
+os.environ['HOST_BACK'] = socket.gethostbyname(socket.gethostname())
 
 ALLOWED_HOSTS = [
     'localhost',
