@@ -5,8 +5,8 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 pwd = os.path.join(BASE_DIR, r"images")
 
-ICSIconIN = Pattern(os.path.join(pwd, "ICSIcon.png")).similar(0.90)
-ICSIconOUT = Pattern(os.path.join(pwd,"ICSIconOUT.png")).similar(0.93)
+ICSIconIN = Pattern(os.path.join(pwd, "ICSIcon.png")).similar(0.70)
+ICSIconOUT = Pattern(os.path.join(pwd,"ICSIconOUT.png")).similar(0.70)
 Search = Pattern(os.path.join(pwd, "Search.png")).targetOffset(17,0)
 Add = os.path.join(pwd, "Add.png")
 Window = os.path.join(pwd, "Window.png")
@@ -19,7 +19,7 @@ sistem_warning = os.path.join(pwd, "sistem_warning.png")
 close_button = os.path.join(pwd, "1653412003237.png")
 
 def PopularTipification(debtor, action, efect, contact, reason, phone, description, t1, t2 ,t3 ,t4):
-    if exists(ICSIconOUT):
+    if not exists(Search):
         click(ICSIconOUT)
     doubleClick(Search)
     paste(debtor)
@@ -51,8 +51,8 @@ def PopularTipification(debtor, action, efect, contact, reason, phone, descripti
         Demographics()
     if os.environ['VALUE'] != 'null' and os.environ['MULTI'] == 'False':
         Commitment()
-    # if os.environ['PHONE'] == 'null' and os.environ['ADDRESS'] == 'null' and os.environ['EMAIL'] == 'null' and os.environ['VALUE'] == 'null':
-    #     type(Key.ENTER)
+    if os.environ['PHONE'] == 'null' and os.environ['ADDRESS'] == 'null' and os.environ['EMAIL'] == 'null' and os.environ['VALUE'] == 'null':
+        type(Key.ENTER)
 
 def Commitment():
     if not exists(Pattern(Add).similar(0.80)):
