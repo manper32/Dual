@@ -28,13 +28,13 @@ def PopularTipification(debtor, action, efect, contact, reason, phone, descripti
         if exists(Pattern(Add).similar(0.80)):
             type(Key.ENTER)
             for i in range(8):
-                if i == 0:
+                if i == 0 and action != 'null':
                     type(action[:int(t1)]+Key.TAB)
-                elif i == 1:
+                elif i == 1 and efect != 'null':
                     type(efect[:int(t2)]+Key.TAB)
-                elif i == 2:
+                elif i == 2  and contact != 'null':
                     type(contact[:int(t3)]+Key.TAB)
-                elif i == 3:
+                elif i == 3 and reason != 'null':
                     type(reason[:int(t4)]+Key.TAB)
                 elif i == 4 and phone != 'null':
                     type(phone[:4]+Key.TAB)
@@ -103,13 +103,13 @@ def Demographics():
 
 PopularTipification(
     os.environ['DEBTOR'],
-    os.environ['R1'],
-    os.environ['R2'],
-    os.environ['R3'],
-    os.environ['R4'],
+    os.environ['r1'],
+    os.environ['r2'],
+    os.environ['r3'],
+    os.environ['r4'],
     os.environ['CALL_PHONE'],
     os.environ['DESCRIPTION'],
-    os.environ['T1'],
-    os.environ['T2'],
-    os.environ['T3'],
-    os.environ['T4'])
+    os.environ['t1'],
+    os.environ['t2'],
+    os.environ['t3'],
+    os.environ['t4'])

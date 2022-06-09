@@ -61,17 +61,18 @@ class ICSdualDesk(APIView):
         os.environ['SIKULI_EXE'] =os.path.join(settings.BASE_DIR, r'ICS\templates\sikulixide-2.0.5.jar')
         os.environ['SIKULI_SCRIPT'] = os.path.join(settings.BASE_DIR, r'ICS\templates\sikuli\NoContact.py')
         os.environ['DEBTOR'] = data.deudor_id
-        os.environ['R1'] = data.r1
-        os.environ['R2'] = data.r2
-        os.environ['R3'] = data.r3
-        os.environ['R4'] = data.r4
-        os.environ['T1'] = str(data.t1)
-        os.environ['T2'] = str(data.t2)
-        os.environ['T3'] = str(data.t3)
-        os.environ['T4'] = str(data.t4)
+        deal_names = list()
+        for i in range(10):
+            deal_names.append('n'+str(i+1))
+            if not pd.isnull(data[('r'+str(i+1))]) and data[('r'+str(i+1))] != '':
+                os.environ['r'+str(i+1)] = data[('r'+str(i+1))]
+                os.environ['t'+str(i+1)] = str(data[('t'+str(i+1))])
+            else:
+                os.environ['r'+str(i+1)] = 'null'
+                os.environ['t'+str(i+1)] = 'null'
         os.environ['CALL_PHONE'] = data.telefono
         os.environ['DESCRIPTION'] = data.descripcion
-        if data[['n1', 'n2', 'n3', 'n4']].any():
+        if data[deal_names].any():
             os.environ['VALUE'] = str(int(data.valor))
             os.environ['DATE'] = dt.datetime.strftime(data.fecha_pago, '%d/%m/%Y')
         else:
