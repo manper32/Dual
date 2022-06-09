@@ -5,7 +5,6 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 pwd = os.path.join(BASE_DIR, r"images")
 
-ICSIconIN = Pattern(os.path.join(pwd, "ICSIcon.png")).similar(0.70)
 ICSIconOUT = Pattern(os.path.join(pwd,"ICSIconOUT.png")).similar(0.70)
 Search = Pattern(os.path.join(pwd, "Search.png")).targetOffset(17,0)
 Add = os.path.join(pwd, "Add.png")
@@ -28,13 +27,13 @@ def PopularTipification(debtor, action, efect, contact, reason, phone, descripti
         if exists(Pattern(Add).similar(0.80)):
             type(Key.ENTER)
             for i in range(8):
-                if i == 0 and action != 'null':
+                if i == 0:
                     type(action[:int(float(t1))]+Key.TAB)
-                elif i == 1 and efect != 'null':
+                elif i == 1:
                     type(efect[:int(float(t2))]+Key.TAB)
-                elif i == 2  and contact != 'null':
+                elif i == 2:
                     type(contact[:int(float(t3))]+Key.TAB)
-                elif i == 3 and reason != 'null':
+                elif i == 3:
                     type(reason[:int(float(t4))]+Key.TAB)
                 elif i == 4 and phone != 'null':
                     type(phone[:4]+Key.TAB)
