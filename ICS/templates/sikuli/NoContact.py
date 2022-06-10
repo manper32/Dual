@@ -27,14 +27,14 @@ def PopularTipification(debtor, action, efect, contact, reason, phone, descripti
         if exists(Pattern(Add).similar(0.80)):
             type(Key.ENTER)
             for i in range(8):
-                if i == 0 and action != 'null':
-                    type(action[:int(t1)]+Key.TAB)
-                elif i == 1 and efect != 'null':
-                    type(efect[:int(t2)]+Key.TAB)
-                elif i == 2  and contact != 'null':
-                    type(contact[:int(t3)]+Key.TAB)
-                elif i == 3 and reason != 'null':
-                    type(reason[:int(t4)]+Key.TAB)
+                if i == 0:
+                    type(action[:int(float(t1))]+Key.TAB)
+                elif i == 1:
+                    type(efect[:int(float(t2))]+Key.TAB)
+                elif i == 2:
+                    type(contact[:int(float(t3))]+Key.TAB)
+                elif i == 3:
+                    type(reason[:int(float(t4))]+Key.TAB)
                 elif i == 4 and phone != 'null':
                     type(phone[:4]+Key.TAB)
                 elif i == 6 or i == 4 and phone == 'null':
