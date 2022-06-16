@@ -23,8 +23,16 @@ def PopularTipification(debtor, action, efect, contact, reason, phone, descripti
     doubleClick(Search)
     paste(debtor)
     type(Key.ENTER)
+    start = 0
+    end = 0
+    step = 1000
     while True:
         if exists(Pattern(Add).similar(0.80)):
+            if len(description) - end > step:
+                end = start + step
+            else:
+                end = len(description)
+            print(start, end)
             type(Key.ENTER)
             for i in range(8):
                 if i == 0:
@@ -40,12 +48,20 @@ def PopularTipification(debtor, action, efect, contact, reason, phone, descripti
                 elif i == 6 or i == 4 and phone == 'null':
                     type(Key.DOWN+Key.TAB)
                 elif i == 7:
-                    paste(description)
+                    paste(description[start:end])
                 else:
                     type(Key.TAB)
-            break
+            start = end + 1
+            if end < len(description):
+                type(Key.ENTER)
+                doubleClick(Search)
+                paste(debtor)
+                type(Key.ENTER)
+            else:
+                break
         elif exists(error):
             break
+
     if os.environ['PHONE'] != 'null' or os.environ['ADDRESS'] != 'null' or os.environ['EMAIL'] != 'null':
         Demographics()
     if os.environ['VALUE'] != 'null' and os.environ['MULTI'] == 'False':
