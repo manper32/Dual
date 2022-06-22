@@ -25,7 +25,7 @@ def PopularTipification(debtor, action, efect, contact, reason, phone, descripti
     type(Key.ENTER)
     start = 0
     end = 0
-    step = 500
+    step = 800
     while True:
         if exists(Pattern(Add).similar(0.80)):
             if len(description) - end > step:
