@@ -5,6 +5,7 @@ import shlex
 import subprocess
 import time as tm
 from time import time
+from unicodedata import normalize
 
 import pandas as pd
 import psycopg2
@@ -25,7 +26,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from ICS.serializers import DualDeskSerializer
 
 """
-implementacion con Selenium
+implementación con Selenium
 """
 @method_decorator(csrf_exempt,name='dispatch')
 class ICSdualWeb(APIView):
@@ -71,6 +72,8 @@ class ICSdualDesk(APIView):
                 os.environ['r'+str(i+1)] = 'null'
                 os.environ['t'+str(i+1)] = 'null'
         os.environ['CALL_PHONE'] = data.telefono
+        trans_tab = dict.fromkeys(map(ord, u'\u0301\u0308'), None)
+        data.descripcion = normalize('NFKC', normalize('NFKD', data.descripcion).translate(trans_tab))
         os.environ['DESCRIPTION'] = data.descripcion
         if data[deal_names].any():
             os.environ['VALUE'] = str(int(data.valor))
