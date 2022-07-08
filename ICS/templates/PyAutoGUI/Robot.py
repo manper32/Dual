@@ -112,7 +112,8 @@ class RobotICS():
         else:
             pyautogui.press('enter')
         
-        time.sleep(1)
+        while pd.isnull(pyautogui.locateCenterOnScreen(os.path.join(pwd, 'value.png'), grayscale=True, confidence=0.8)):
+            time.sleep(1)
         x, y = pyautogui.locateCenterOnScreen(os.path.join(pwd, 'value.png'), grayscale=True, confidence=0.8)
         pyautogui.click(x= x+64, y=y-6 ,clicks=1)
         x, y = pyautogui.locateCenterOnScreen(os.path.join(pwd, 'delete.png'), grayscale=True, confidence=0.8)
@@ -140,6 +141,8 @@ class RobotICS():
                     x, y = pyautogui.locateCenterOnScreen(os.path.join(pwd, 'address.png'), grayscale=True, confidence=0.8)
                     pyautogui.click(x= x, y=y ,clicks=1)
                 if i == 'PHONE':
+                    while pd.isnull(pyautogui.locateCenterOnScreen(os.path.join(pwd, 'address.png'), grayscale=True, confidence=0.8)):
+                        time.sleep(1)
                     x, y = pyautogui.locateCenterOnScreen(os.path.join(pwd, 'address.png'), grayscale=True, confidence=0.8)
                     pyautogui.click(x= x, y=y+32 ,clicks=1)
                     for j in range(6):
@@ -148,7 +151,8 @@ class RobotICS():
                             pyautogui.write("{:0.0f}".format(float(os.environ['PHONE'])))
                     pyautogui.write('57')
                 if i == 'ADDRESS' or i == 'EMAIL':
-                    time.sleep(0.1)
+                    while pd.isnull(pyautogui.locateCenterOnScreen(os.path.join(pwd, 'address_button.png'), grayscale=True, confidence=0.8)):
+                        time.sleep(1)
                     x, y = pyautogui.locateCenterOnScreen(os.path.join(pwd, 'address_button.png'), grayscale=True, confidence=0.8)
                     pyautogui.click(x= x, y=y-32 ,clicks=1)
                     for j in range(4):
