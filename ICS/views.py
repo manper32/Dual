@@ -9,6 +9,7 @@ from unicodedata import normalize
 
 import pandas as pd
 import psycopg2
+import pyautogui
 from django.conf import settings
 from django.core import management
 from django.core.management.commands import loaddata
@@ -24,6 +25,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from webdriver_manager.chrome import ChromeDriverManager
 
 from ICS.serializers import DualDeskSerializer
+from ICS.templates.PyAutoGUI.Robot import RobotICS
 
 """
 implementación con Selenium
@@ -51,7 +53,7 @@ class ICSdualWeb(APIView):
 
 
 """
-Clase Dual de escritorio, utilizando Jython y python
+Clase Dual de escritorio, utilizando python
 """
 class ICSdualDesk(APIView):
     def ExecuteSikuli(self, data):
@@ -88,16 +90,21 @@ class ICSdualDesk(APIView):
             else:
                 os.environ[i.upper()] = 'null'
 
-        command = "java -cp %SIKULI_EXE% org.python.util.jython %SIKULI_SCRIPT%"
-        print(subprocess.Popen(
-            shlex.split(command),
-            shell=True,
-            stdout=subprocess.PIPE).stdout.read().decode())
+        # command = "java -cp %SIKULI_EXE% org.python.util.jython %SIKULI_SCRIPT%"
+        # print(subprocess.Popen(
+        #     shlex.split(command),
+        #     shell=True,
+        #     stdout=subprocess.PIPE).stdout.read().decode())
+        
+        RobotICS().Controller()
+        
         print(dt.timedelta(seconds=time() - initial))
         if os.environ['MULTI'] == 'True':
-            ctypes.windll.user32.MessageBoxW(0, "Gestión con multiples obligaciones", "Advertencia", 0)
+            pyautogui.alert(title='Advertencia', text='Gestión con multiples obligaciones', button='OK')
+            # ctypes.windll.user32.MessageBoxW(0, "Gestión con multiples obligaciones", "Advertencia", 0)
         if os.environ['PHONE'] != 'null' or os.environ['ADDRESS'] != 'null' or os.environ['EMAIL'] != 'null':
-            ctypes.windll.user32.MessageBoxW(0, "Terminar de diligenciar Actualización de datos", "Advertencia", 0)
+            pyautogui.alert(title='Advertencia', text='Gestión con multiples obligaciones', button='OK')
+            # ctypes.windll.user32.MessageBoxW(0, "Terminar de diligenciar Actualización de datos", "Advertencia", 0)
 
     def post(self,request):
         initial = time()

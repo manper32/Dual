@@ -17,6 +17,8 @@ Django = "==3.2"
 PyAutoGUI = "==0.9.53"
 pandas = "*"
 psycopg2-binary = "*"
+pillow = "*"
+opencv-python = "*"
 
 [dev-packages]
 
