@@ -103,7 +103,7 @@ class ICSdualDesk(APIView):
             pyautogui.alert(title='Advertencia', text='Gestión con multiples obligaciones', button='OK')
             # ctypes.windll.user32.MessageBoxW(0, "Gestión con multiples obligaciones", "Advertencia", 0)
         if os.environ['PHONE'] != 'null' or os.environ['ADDRESS'] != 'null' or os.environ['EMAIL'] != 'null':
-            pyautogui.alert(title='Advertencia', text='Gestión con multiples obligaciones', button='OK')
+            pyautogui.alert(title='Advertencia', text='Terminar de diligenciar Actualización de datos', button='OK')
             # ctypes.windll.user32.MessageBoxW(0, "Terminar de diligenciar Actualización de datos", "Advertencia", 0)
 
     def post(self,request):
