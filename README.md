@@ -7,3 +7,4 @@ Junto con el instructivo de instalación, el cual se aloja en la ruta que podemo
 
 1. el ejecutable denominado var.bat debe de ser alojado en la ruta *C:\Users\Default\Documents\CBPO\Dual* de la maquina del asesor
 2. para lograr la ejecución correcta del RPA, es necesario ubicar en el escritorio del usuario especifico a usar la herramienta el archivo llamado **var - Acceso directo**
+3. Es importante tener en cuenta que la carpeta *C:\Users\Default\Documents\CBPO* tiene que tener permisos de control total para todos los usuarios
