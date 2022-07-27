@@ -106,7 +106,18 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    },
+    'public': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'OPTIONS': {
+            'options': '-c search_path=public'
+        },
+        'NAME': os.environ.get('PSQL_MAIN_DB'),
+        'USER': os.environ.get('PSQL_MAIN_USER'),
+        'PASSWORD': os.environ.get('PSQL_MAIN_PSW'),
+        'HOST': os.environ.get('PSQL_MAIN_HOST'),
+        'PORT': os.environ.get('PSQL_MAIN_PORT')
+    },
 }
 
 

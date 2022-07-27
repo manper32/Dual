@@ -26,6 +26,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 from ICS.serializers import DualDeskSerializer
 from ICS.templates.PyAutoGUI.Robot import RobotICS
+from ICS.models import Cliente
 
 """
 implementación con Selenium
@@ -76,7 +77,8 @@ class ICSdualDesk(APIView):
         os.environ['CALL_PHONE'] = data.telefono
         trans_tab = dict.fromkeys(map(ord, u'\u0301\u0308'), None)
         data.descripcion = normalize('NFKC', normalize('NFKD', data.descripcion).translate(trans_tab))
-        os.environ['DESCRIPTION'] = data.descripcion
+        os.environ['DESCRIPTION'] = data.descripcion.replace('\n',"")
+        print(os.environ['DESCRIPTION'])
         if data[deal_names].any():
             os.environ['VALUE'] = str(int(data.valor))
             os.environ['DATE'] = dt.datetime.strftime(data.fecha_pago, '%d/%m/%Y')
@@ -114,7 +116,10 @@ class ICSdualDesk(APIView):
 
             with open(os.path.join(settings.BASE_DIR, 'ICS/templates/query1.sql'), 'r') as file:
                 query = file.read()
-            data = pd.read_sql(query.format(request.data.get('user')), psycopg2.connect(**settings.PSQL_MAIN))
+            
+            client = Cliente.objects.using('public').get(unidad__id=request.data['unit'])
+
+            data = pd.read_sql(query.format(request.data.get('user'), client.schema_name), psycopg2.connect(**settings.PSQL_MAIN))
             print(data)
             commit_fields = [column for column in data.columns if len(column) == 2 and column.find('n') == 0]
             amount = data.groupby(by=['gestion_fecha'], as_index=True, sort=False).count()['n1']
