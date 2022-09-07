@@ -57,7 +57,7 @@ class ICSdualWeb(APIView):
 Clase Dual de escritorio, utilizando python
 """
 class ICSdualDesk(APIView):
-    def ExecuteSikuli(self, data):
+    def ExecuteSikuli(self, data, schema):
         if data.telefono == '':
             data.update({'telefono': 'null'})
         initial = time()
@@ -93,15 +93,13 @@ class ICSdualDesk(APIView):
             else:
                 os.environ[i.upper()] = 'null'
 
-        RobotICS().Controller()
+        RobotICS().Controller(schema)
         
         print(dt.timedelta(seconds=time() - initial))
         if os.environ['MULTI'] == 'True':
             pyautogui.alert(title='Advertencia', text='Gestión con multiples obligaciones', button='OK')
-            # ctypes.windll.user32.MessageBoxW(0, "Gestión con multiples obligaciones", "Advertencia", 0)
         if os.environ['PHONE'] != 'null' or os.environ['ADDRESS'] != 'null' or os.environ['EMAIL'] != 'null':
             pyautogui.alert(title='Advertencia', text='Terminar de diligenciar Actualización de datos', button='OK')
-            # ctypes.windll.user32.MessageBoxW(0, "Terminar de diligenciar Actualización de datos", "Advertencia", 0)
 
     def post(self,request):
         initial = time()
@@ -125,7 +123,7 @@ class ICSdualDesk(APIView):
             else:
                 os.environ['MULTI'] = 'False'
 
-            self.ExecuteSikuli(data.loc[0].copy())
+            self.ExecuteSikuli(data.loc[0].copy(), client.schema_name)
 
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

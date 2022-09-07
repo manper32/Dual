@@ -25,9 +25,11 @@ class RobotICS():
         self.t3 = os.environ['t3'] if os.environ['t3'] != 'null' else 0
         self.t4 = os.environ['t4'] if os.environ['t4'] != 'null' else 0
 
-    def Controller(self):
+    def Controller(self, schema):
         self.SelectICS()
         self.SearchDebtor()
+        if schema == 'cbpo_bogota_wiser':
+            self.CloseAlert()
         self.ManageDebtor()
     
     """
@@ -46,6 +48,13 @@ class RobotICS():
         pyautogui.click(x= x+17, y=y ,clicks=2)
         pyautogui.write(self.debtor)
         pyautogui.press('enter')
+
+    """
+    cerrar cuadro de alerta
+    """
+    def CloseAlert(self):
+        x, y = pyautogui.locateCenterOnScreen(os.path.join(pwd, 'value.png'), grayscale=True, confidence=0.8)
+        pyautogui.click(x= x, y=y,clicks=1)
     
     """
     Gestionar deudor
