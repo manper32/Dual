@@ -53,7 +53,8 @@ class RobotICS():
     cerrar cuadro de alerta
     """
     def CloseAlert(self):
-        x, y = pyautogui.locateCenterOnScreen(os.path.join(pwd, 'value.png'), grayscale=True, confidence=0.8)
+        x, y = pyautogui.locateCenterOnScreen(os.path.join(pwd, 'Alert.png'), grayscale=True, confidence=0.5)
+        print(x,y)
         pyautogui.click(x= x, y=y,clicks=1)
     
     """
