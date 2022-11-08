@@ -126,8 +126,10 @@ class RobotICS():
         if not pd.isnull(pyautogui.locateOnScreen(os.path.join(pwd, 'sistem_warning.png'), grayscale=True, confidence=0.8)):
             pyautogui.press('tab')
             pyautogui.press('enter')
+        x, y = pyautogui.locateCenterOnScreen(os.path.join(pwd, 'Accept.png'), grayscale=True, confidence=0.8)
+        time.sleep(1)
+        pyautogui.click(x= x, y=y+10 ,clicks=1)
         x, y = pyautogui.locateCenterOnScreen(os.path.join(pwd, '1653412003237.png'), grayscale=True, confidence=0.8)
-        pyautogui.click(x= x, y=y-70 ,clicks=1)
         pyautogui.click(x= x, y=y+5 ,clicks=1)
 
     """
