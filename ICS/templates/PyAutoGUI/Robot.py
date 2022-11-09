@@ -72,7 +72,7 @@ class RobotICS():
                     elif i == 2:
                         pyautogui.write(self.contact[:int(float(self.t3))])
                         pyautogui.press('tab')
-                    elif i == 3:
+                    elif i == 3 and len(self.reason)<float(self.t4):
                         pyautogui.write(self.reason[:int(float(self.t4))])
                         pyautogui.press('tab')
                     elif i == 4 and self.phone != 'null':
