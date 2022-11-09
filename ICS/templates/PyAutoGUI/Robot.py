@@ -20,10 +20,10 @@ class RobotICS():
         self.reason = os.environ['r4']
         self.phone = os.environ['CALL_PHONE']
         self.description = os.environ['DESCRIPTION']
-        self.t1 = os.environ['t1']
-        self.t2 = os.environ['t2']
-        self.t3 = os.environ['t3']
-        self.t4 = os.environ['t4']
+        self.t1 = os.environ['t1'] if os.environ['t1'] != 'null' else 0
+        self.t2 = os.environ['t2'] if os.environ['t2'] != 'null' else 0
+        self.t3 = os.environ['t3'] if os.environ['t3'] != 'null' else 0
+        self.t4 = os.environ['t4'] if os.environ['t4'] != 'null' else 0
 
     def Controller(self):
         self.SelectICS()
@@ -72,7 +72,7 @@ class RobotICS():
                     elif i == 2:
                         pyautogui.write(self.contact[:int(float(self.t3))])
                         pyautogui.press('tab')
-                    elif i == 3 and len(self.reason)<float(self.t4):
+                    elif i == 3:
                         pyautogui.write(self.reason[:int(float(self.t4))])
                         pyautogui.press('tab')
                     elif i == 4 and self.phone != 'null':
