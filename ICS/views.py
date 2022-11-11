@@ -78,6 +78,7 @@ class ICSdualDesk(APIView):
         trans_tab = dict.fromkeys(map(ord, u'\u0301\u0308'), None)
         data.descripcion = normalize('NFKC', normalize('NFKD', data.descripcion).translate(trans_tab))
         os.environ['DESCRIPTION'] = data.descripcion.replace('\n',"")
+        os.environ['DESCRIPTION'] = os.environ['DESCRIPTION'].replace('\t', '')
         print(os.environ['DESCRIPTION'])
         if data[deal_names].any():
             os.environ['VALUE'] = str(int(data.valor))
@@ -92,12 +93,6 @@ class ICSdualDesk(APIView):
             else:
                 os.environ[i.upper()] = 'null'
 
-        # command = "java -cp %SIKULI_EXE% org.python.util.jython %SIKULI_SCRIPT%"
-        # print(subprocess.Popen(
-        #     shlex.split(command),
-        #     shell=True,
-        #     stdout=subprocess.PIPE).stdout.read().decode())
-        
         RobotICS().Controller()
         
         print(dt.timedelta(seconds=time() - initial))
@@ -120,7 +115,7 @@ class ICSdualDesk(APIView):
             client = Cliente.objects.using('public').get(unidad__id=request.data['unit'])
 
             data = pd.read_sql(query.format(request.data.get('user'), client.schema_name), psycopg2.connect(**settings.PSQL_MAIN))
-            print(data)
+            print(data[['r1','r2','r3','r4','deudor_id']])
             commit_fields = [column for column in data.columns if len(column) == 2 and column.find('n') == 0]
             amount = data.groupby(by=['gestion_fecha'], as_index=True, sort=False).count()['n1']
             if amount.shape[0]<1:

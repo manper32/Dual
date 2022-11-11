@@ -127,8 +127,7 @@ class RobotICS():
             pyautogui.press('tab')
             pyautogui.press('enter')
         x, y = pyautogui.locateCenterOnScreen(os.path.join(pwd, 'Accept.png'), grayscale=True, confidence=0.8)
-        time.sleep(1)
-        pyautogui.click(x= x, y=y+10 ,clicks=1)
+        pyautogui.click(x= x, y=y ,clicks=1)
         x, y = pyautogui.locateCenterOnScreen(os.path.join(pwd, '1653412003237.png'), grayscale=True, confidence=0.8)
         pyautogui.click(x= x, y=y+5 ,clicks=1)
 
