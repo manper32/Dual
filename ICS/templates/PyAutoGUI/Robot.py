@@ -55,7 +55,7 @@ class RobotICS():
     def CloseAlert(self):
         x, y = pyautogui.locateCenterOnScreen(os.path.join(pwd, 'Alert.png'), grayscale=True, confidence=0.5)
         print(x,y)
-        pyautogui.click(x= x, y=y,clicks=1)
+        pyautogui.click(x= x, y=y-10,clicks=1)
     
     """
     Gestionar deudor
