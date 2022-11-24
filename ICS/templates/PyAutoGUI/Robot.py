@@ -53,6 +53,8 @@ class RobotICS():
     cerrar cuadro de alerta
     """
     def CloseAlert(self):
+        while pd.isnull(pyautogui.locateCenterOnScreen(os.path.join(pwd, 'Alert.png'), grayscale=False, confidence=0.5)):
+            time.sleep(1)
         x, y = pyautogui.locateCenterOnScreen(os.path.join(pwd, 'Alert.png'), grayscale=False, confidence=0.5)
         print(x,y)
         pyautogui.click(x= x, y=y+10,clicks=1)
@@ -85,16 +87,16 @@ class RobotICS():
                     elif i == 3:
                         pyautogui.write(self.reason[:int(float(self.t4))])
                         pyautogui.press('tab')
-                    # elif i == 4 and self.phone != 'null':
-                    #     pyautogui.write(self.phone[:4])
-                    #     pyautogui.press('tab')
-                    # elif i == 6 or i == 4 and self.phone == 'null':
-                    #     pyautogui.press('down')
-                    #     pyautogui.press('tab')
-                    # elif i == 7:
-                    #     pyautogui.write(self.description[start:end])
-                    # else:
-                    #     pyautogui.press('tab')
+                    elif i == 4 and self.phone != 'null':
+                        pyautogui.write(self.phone[:4])
+                        pyautogui.press('tab')
+                    elif i == 6 or i == 4 and self.phone == 'null':
+                        pyautogui.press('down')
+                        pyautogui.press('tab')
+                    elif i == 7:
+                        pyautogui.write(self.description[start:end])
+                    else:
+                        pyautogui.press('tab')
                 start = end + 1
                 if end < len(self.description):
                     pyautogui.press('enter')
